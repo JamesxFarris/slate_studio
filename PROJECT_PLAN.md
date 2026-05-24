@@ -14,7 +14,9 @@ Ship a working, demo-able, dogfood-able multi-agent job application system in 6-
 
 ## Current phase
 
-**→ Week 1: Foundation**
+**→ Week 1: Foundation — Phase 2 done, Phase 3 (integration + smoke test) is next**
+
+See `HANDOFF.md` for the detailed state and Phase 3 punch list.
 
 Update this marker as work progresses. Always check this before starting a session.
 
@@ -26,20 +28,21 @@ Update this marker as work progresses. Always check this before starting a sessi
 
 **Goal:** prove the architecture by getting one agent working end-to-end with streaming UI.
 
-- [ ] Monorepo scaffold (pnpm workspaces: `backend/`, `frontend/`, `shared/`)
-- [ ] Backend: Express + TypeScript + Socket.io
-- [ ] Frontend: Vite + React + TypeScript + Tailwind
-- [ ] MongoDB Atlas connection (free tier)
-- [ ] Auth: simple email/password with sessions (single-user for now, multi-user later)
-- [ ] Shared types package for agent event schemas
-- [ ] Anthropic API client wrapper with cost logging to MongoDB
-- [ ] **Company Researcher agent** — first agent, full implementation
-  - System prompt
-  - Web search tool integration (Tavily)
-  - Streaming events: `status`, `thought`, `tool_call`, `finding`, `complete`, `error`
-  - Hard caps: max_tokens 4000, max_tool_calls 8
-- [ ] **Dashboard skeleton** with one panel showing Company Researcher events in real time
-- [ ] Test: submit a real company name, watch the panel populate, get a final dossier
+- [x] Monorepo scaffold (pnpm workspaces: `backend/`, `frontend/`, `shared/`)
+- [x] Backend: Express + TypeScript + Socket.io
+- [x] Frontend: Vite + React + TypeScript + Tailwind
+- [x] MongoDB Atlas connection (free tier) *(code in place; not yet exercised against a real Mongo — needs `.env`)*
+- [x] Auth: simple email/password with sessions *(login-only, seeded user — per `auth-scope` decision)*
+- [x] Shared types package for agent event schemas
+- [x] Anthropic API client wrapper with cost logging to MongoDB *(`callClaudeWithLogging`; not yet exercised against the real API)*
+- [x] **Company Researcher agent** — first agent, full implementation
+  - [x] System prompt
+  - [x] Web search tool integration (Tavily)
+  - [x] Streaming events: `status`, `thought`, `tool_call`, `finding`, `complete`, `error`
+  - [x] Hard caps: max_tokens 3000, max_tool_calls 8 *(enforced in code as constants, not just prompt)*
+- [x] **Dashboard skeleton** with one panel showing Company Researcher events in real time
+- [ ] **Phase 3 — Integration:** wire `POST /api/runs` to dispatch the agent, thread `runId` through `Agent.run()`, return cost from the wrapper, hoist `subscribe:run` payload schema into `shared/`
+- [ ] Test: submit a real company name, watch the panel populate, get a final dossier *(blocked on `.env` + Phase 3 integration)*
 
 **End-of-week demo:** type "Stripe" into a form, watch the Company Researcher panel light up with search queries and findings, end up with a structured dossier on screen.
 

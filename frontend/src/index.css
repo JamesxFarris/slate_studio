@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App-wide baseline. Dark mode is forced on the <html> element in index.html;
+   this file only handles things Tailwind base doesn't cover: scrollbar styling,
+   selection color, and the body font family. */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    font-family: theme('fontFamily.sans');
+    background-color: theme('colors.zinc.950');
+    color: theme('colors.zinc.100');
+  }
+
+  ::selection {
+    background-color: theme('colors.studio.500');
+    color: theme('colors.zinc.950');
+  }
+
+  /* Subtle scrollbars in the agent panels so streaming logs don't look heavy. */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.zinc.800');
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.zinc.700');
+  }
+}
